@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma para la Detección de Plagas  - Acceso</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos base */
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Animaciones */
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(300px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .app-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column; /* columna para el título superior */
+            align-items: center;
+            justify-content: center;
+            background-color: #e2e8f0; /* bg-gray-200 */
+            padding: 20px; /* Espacio para móviles */
+        }
+        /* Estilos para Resultados (basados en Angular previo)  */
+        .border-red { border-color: #ef4444; background-color: #fef2f2; }
+        .border-green { border-color: #10b981; background-color: #ecfdf5; }
+        .border-yellow { border-color: #f59e0b; background-color: #fffdf5; }
+    </style>
+</head>
+<body class="bg-gray-200">
+
+    <div id="app" class="app-container">
+        <!-- TÍTULO SUPERIOR AGREGADO -->
+        <div class="mb-6 text-center fade-in">
+            <h1 class="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-green-500 shadow-lg" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">
+                APPcol
+            </h1>
+            <p class="text-xl font-semibold text-gray-700 mt-2">
+                Innovación Agrícola para Colombia
+                <p> Puerto Rico, Caquetá</p>
+            </p>
+        </div>
+        <!-- FIN TÍTULO SUPERIOR -->
+
+        
+        <!-- Vista de Autenticación -->
+        <div id="auth-view" class="w-full max-w-sm bg-white p-8 rounded-lg shadow-xl fade-in">
+            <h2 class="text-3xl font-bold text-center text-indigo-600 mb-6">Acceder a la Plataforma</h2>
+            <form id="auth-form" class="space-y-4">
+                <div>
+                    <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Agricultor:</label>
+                    <input type="text" id="username" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Admin" required>
+                </div>
+                <div>
+                    <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Contraseña:</label>
+                    <input type="password" id="password" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="******" required>
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline transition duration-200">
+                    Iniciar Sesión
+                </button>
+            </form>
+            <p id="error-message" class="text-red-500 text-sm text-center mt-4 hidden">Usuario o contraseña incorrectos. Usa 'admin' y 'admin'.</p>
+            <!-- Mensajes de Error y Pistas 
+            <p id="error-message" class="text-red-500 text-sm text-center mt-4 hidden">Usuario o contraseña incorrectos.</p> -->
+
+            <!-- Mensajes Usuarios -->
+            <div class="mt-6 p-4 text-sm bg-gray-100 rounded-lg border border-gray-300">
+                <p class="font-bold text-gray-700 mb-1">Estudiantes:</p>
+                <ul class="list-disc list-inside text-gray-600 space-y-0.5">
+                    <li>Deninson alexander chamorro</li>
+                    <li>Jhon Jeiler Muñoz Arias</li>
+                    <li>user3</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TÍTULO infeRIOR AGREGADO 
+        <div class="mb-6 text-center fade-in">
+            <h1 class="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-green-500 shadow-lg" style="text-shadow: 10px 22px 4px rgba(0,0,0,0.1);">
+                Ingeniería De Sistemas
+            </h1>
+            <p class="text-xl font-semibold text-gray-700 mt-2">
+                UNAD
+            </p>
+        </div>
+         FIN TÍTULO infeRIOR -->
+
+
+        <!-- Vista de Detección de Plagas (App Principal) -->
+        <div id="plagas-view" class="w-full max-w-lg bg-white shadow-2xl rounded-3xl overflow-hidden hidden transform transition duration-500 hover:shadow-2xl">
+            <header class="bg-indigo-500 text-white p-6 relative"> <!-- Se añade 'relative' para posicionar el botón -->
+                <!-- Botón de Cerrar Sesión  con imagen
+                <button onclick="logout()" class="absolute top-3 right-3 p-2 bg-indigo-700 hover:bg-indigo-800 rounded-full transition duration-150 shadow-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.707 3.293a1 1 0 00-1.414 1.414L14.586 10l-2.293 2.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414l-3-3z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                -->
+                <!-- Botón de Cerrar Sesión-->
+
+                <button onclick="logout()" class="absolute top-3 right-3 p-2 bg-indigo-700 hover:bg-indigo-800 rounded-full transition duration-950 shadow-md">
+                    Salir
+                    <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.707 3.293a1 1 0 00-1.414 1.414L14.586 10l-2.293 2.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414l-3-3z" clip-rule="evenodd" />
+                </button>
+
+
+                <h1 class="text-2xl font-bold text-center pr-10"> <!-- Añadir pr-10 para no solapar el título con el botón -->
+                    Detector Inteligente de Plagas (Simulador)
+                </h1>
+                <p class="text-sm text-center opacity-80 mt-1">
+                    Plataforma UNAD para Café, Lulo y Plátano
+                </p>
+            </header>
+
+
+            <main class="p-6 space-y-6">
+                <!--mensaje personalizado -->
+                <p class="text-lg text-gray-700">
+                    ¡Bienvenido agricultor <span id="welcome-user" class="font-bold text-indigo-600"></span>!
+                </p>
+                
+                <!-- 1. Carga de Imagen / Previsualización -->
+                <div id="image-upload-area" class="border-2 border-dashed border-indigo-300 rounded-xl p-6 text-center cursor-pointer hover:bg-indigo-50 transition duration-200" onclick="document.getElementById('file-input').click()">
+                    <input type="file" id="file-input" accept="image/*" class="hidden" onchange="handleFileSelect(event)"> 
+                    <img id="image-preview" src="" alt="Previsualización" class="max-h-60 w-auto object-contain rounded-lg mx-auto shadow-md hidden">
+                    <div id="placeholder-text" class="space-y-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto text-indigo-500"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="m16 17-4 4-4-4"/></svg>
+                        <p class="text-lg font-semibold text-indigo-600">
+                            Toca para subir una foto del cultivo
+                        </p>
+                        <p class="text-sm text-gray-500">
+                            (Simulacion de importar desde el celular)
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 2. Botón de Procesamiento -->
+                <div id="diagnosis-button-container" class="pt-2 hidden">
+                    <button id="process-button" onclick="processImage()" class="w-full py-3 rounded-xl text-white font-semibold transition duration-300 bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] shadow-lg shadow-indigo-400/50">
+                        Diagnosticar Plaga Ahora
+                    </button>
+                </div>
+                
+                <!-- 3. Resultados Diagnóstico (Simulado) -->
+                <div id="diagnosis-result-container" class="p-5 border-t-4 rounded-xl mt-6 transition duration-500 hidden">
+                    <h3 class="text-xl font-bold mb-3 flex items-center text-gray-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        RESULTADO DEL ANÁLISIS
+                    </h3>
+                    <div class="space-y-3" id="diagnosis-details">
+                        <!-- Detalles inyectados por  JS -->
+                    </div>
+                    
+                    <!-- Botones de Integración IA -->
+                    <div class="mt-6 space-y-4">
+                        <button id="gemini-vision-button" onclick="getAdvancedAnalysis()" class="w-full py-3 rounded-xl text-white font-semibold transition duration-300 flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 active:scale-[0.98] shadow-lg shadow-purple-400/50">
+                            ✨ Obtener informe (IA) Avanzado de la Imagen
+                        </button>
+                        <button id="gemini-text-button" onclick="generateActionPlan()" class="w-full py-3 rounded-xl text-white font-semibold transition duration-300 flex items-center justify-center gap-2 bg-orange-600 hover:bg-orange-700 active:scale-[0.98] shadow-lg shadow-orange-400/50">
+                            ✨ Generar Plan (IA) de Acción Detallado
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4. Resultados de IA controlada -->
+                <div id="llm-output-container" class="mt-6 p-5 bg-white border-2 border-dashed border-gray-300 rounded-xl shadow-inner space-y-3 hidden">
+                    <h3 class="text-xl font-bold text-gray-800 flex items-center">
+                        <span class="mr-2 text-indigo-500">✨</span>
+                        Resultado del Asistente IA
+                    </h3>
+                    <h4 id="llm-output-title" class="font-semibold text-gray-700"></h4>
+                    <pre id="llm-output-content" class="bg-gray-50 p-4 rounded-lg text-sm whitespace-pre-wrap text-left"></pre>
+                </div>
+
+            </main>
+        </div>
+
+    </div>
+
+    <script>
+        // --- CONSTANTES GLOBALES Y CONFIGURACIÓN ---
+        const apiKey = "";
+
+        // --- ESTADO DE LA APLICACIÓN (Variables globales) ---
+        let imagePreviewBase64 = null;
+        let diagnosisResult = null;
+        let isProcessing = false;
+        let isLLMLoading = null; // 'VISION', 'TEXT', or null
+
+        // --- REFERENCIAS AL DOM ---
+        const authView = document.getElementById('auth-view');
+        const plagasView = document.getElementById('plagas-view');
+        const authForm = document.getElementById('auth-form');
+        const errorMessage = document.getElementById('error-message');
+        const imagePreview = document.getElementById('image-preview');
+        const placeholderText = document.getElementById('placeholder-text');
+        const processButtonContainer = document.getElementById('diagnosis-button-container');
+        const processButton = document.getElementById('process-button');
+        const diagnosisResultContainer = document.getElementById('diagnosis-result-container');
+        const diagnosisDetails = document.getElementById('diagnosis-details');
+        const llmOutputContainer = document.getElementById('llm-output-container');
+        const llmOutputTitle = document.getElementById('llm-output-title');
+        const llmOutputContent = document.getElementById('llm-output-content');
+        //se pensaban usar, en conexion con gemini ia
+        const geminiVisionButton = document.getElementById('gemini-vision-button');
+        const geminiTextButton = document.getElementById('gemini-text-button');
+
+        const mainAppView = document.getElementById('main-app-view');
+        const welcomeUser = document.getElementById('welcome-user');
+        
+        // --- FUNCIÓN DE UTILIDAD: MANEJO DE ESTILOS ---
+        function getResultClasses(color) {
+            diagnosisResultContainer.classList.remove('border-red', 'border-green', 'border-yellow');
+            switch (color) {
+                case 'red': diagnosisResultContainer.classList.add('border-red'); break;
+                case 'green': diagnosisResultContainer.classList.add('border-green'); break;
+                case 'yellow': diagnosisResultContainer.classList.add('border-yellow'); break;
+            }
+        }
+
+        function setButtonState(button, isLoading, loadingText, defaultText) {
+            button.disabled = isLoading;
+            if (isLoading) {
+                button.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>${loadingText}`;
+                button.classList.add('bg-gray-400', 'cursor-not-allowed');
+                button.classList.remove('bg-indigo-600', 'hover:bg-indigo-700', 'bg-purple-600', 'hover:bg-purple-700', 'bg-orange-600', 'hover:bg-orange-700');
+            } else {
+                button.innerHTML = defaultText;
+                button.classList.remove('bg-gray-400', 'cursor-not-allowed');
+                // Restaurar colores específicos
+                if (button.id === 'process-button') {
+                    button.classList.add('bg-indigo-600', 'hover:bg-indigo-700');
+                } else if (button.id === 'gemini-vision-button') {
+                    button.classList.add('bg-purple-600', 'hover:bg-purple-700');
+                } else if (button.id === 'gemini-text-button') {
+                    button.classList.add('bg-orange-600', 'hover:bg-orange-700');
+                }
+            }
+        }
+        
+        function setLLMLoadingState(mode) {
+            isLLMLoading = mode;
+            const visionLoading = mode === 'VISION';
+            const textLoading = mode === 'TEXT';
+            
+            // luego de presinar los botenes cambian a los siguiente nombre... se vuelve a poner los mismos anteriores.
+            setButtonState(geminiVisionButton, visionLoading, 'Analizando Imagen...', '✨ Obtener informe (IA) Avanzado de la Imagen');
+            setButtonState(geminiTextButton, textLoading, 'Generando Plan...', '✨ Generar Plan (IA) de Acción Detallado');
+            
+            // Si el modo no es nulo, deshabilitar el otro temporalmente
+            if(mode) {
+                if (visionLoading) {
+                    geminiTextButton.disabled = true;
+                    geminiTextButton.classList.add('opacity-90', 'cursor-not-allowed');
+                } else if (textLoading) {
+                    geminiVisionButton.disabled = true;
+                    geminiVisionButton.classList.add('opacity-50', 'cursor-not-allowed');
+                }
+            } else {
+                geminiVisionButton.disabled = false;
+                geminiTextButton.disabled = false;
+                geminiVisionButton.classList.remove('opacity-90', 'cursor-not-allowed');
+                geminiTextButton.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        // --- 1. LÓGICA DE AUTENTICACIÓN Y CIERRE DE SESIÓN ---
+        // Sin usar bases de datos
+        //const VALID_USERNAME = 'unad';
+        //const VALID_PASSWORD = '123';
+        const VALID_USERS = {
+            "Deninson": "pass123",
+            "admin": "admin",
+            "jhon": "123456",
+            "ivan": "abcdef",
+            "user4": "987654"
+        };
+        // Listener para el formulario de login
+        authForm.addEventListener('submit', handleLogin);
+
+        function handleLogin(event) {
+            event.preventDefault(); // Evita que la página se recargue
+
+            const usernameInput = document.getElementById('username').value;
+            const passwordInput = document.getElementById('password').value;
+
+            // Reiniciar mensaje de error
+            errorMessage.classList.add('hidden');
+            
+            // Buscar el usuario y validar la contraseña
+            if (VALID_USERS.hasOwnProperty(usernameInput)) {
+                if (VALID_USERS[usernameInput] === passwordInput) {
+                    // Credenciales válidas
+                    login(usernameInput);
+                    return;
+                }
+            }
+
+            // Credenciales inválidas
+            errorMessage.classList.remove('hidden');
+            
+            // Limpiar el campo de contraseña por seguridad
+            document.getElementById('password').value = '';
+        }
+        function login(username) {
+            //vista personalizada
+            welcomeUser.textContent = (username);
+            errorMessage.classList.add('hidden');
+            authView.classList.add('hidden');
+            plagasView.classList.remove('hidden');
+            plagasView.classList.add('fade-in');            
+            mainAppView.classList.remove('hidden');           
+
+            // Limpiar campos y resultados al iniciar sesión (opcional)
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            
+            // Forzar limpieza de vista de plagas
+            resetPlagasView(); 
+        }
+
+
+
+
+//
+        //Validacion de un unico usuario
+        //authForm.addEventListener('submit', function(event) {
+           // event.preventDefault();
+            //const usernameInput = document.getElementById('username').value;
+            //const passwordInput = document.getElementById('password').value;       
+
+            //if (usernameInput === VALID_USERNAME && passwordInput === VALID_PASSWORD) {
+                //login();
+            //} else {
+               // errorMessage.classList.remove('hidden');
+            //}
+        //});
+
+
+
+
+        function logout() {
+            // cofigo de js que evita recargar pagina
+            // Restablecer el estado de la vista de plagas
+            resetPlagasView();
+            // Limpiar campos y resultados al iniciar sesión (opcional)
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+
+            plagasView.classList.add('hidden');
+            authView.classList.remove('hidden');
+            authView.classList.add('fade-in');
+            mainAppView.classList.add('hidden');
+
+            
+            
+
+
+            //Codigo para cargar nuevamente la pagina
+            //window.location.reload();
+
+        }
+
+        function resetPlagasView() {
+            imagePreviewBase64 = null;
+            diagnosisResult = null;
+            
+            imagePreview.classList.add('hidden');
+            imagePreview.src = '';
+            placeholderText.classList.remove('hidden');
+            processButtonContainer.classList.add('hidden');
+            diagnosisResultContainer.classList.add('hidden');
+            llmOutputContainer.classList.add('hidden');
+            isProcessing = false;
+            setButtonState(processButton, false, '', 'Diagnosticar Plaga Ahora');
+            setLLMLoadingState(null);
+        }
+
+
+        
+
+
+        // --- 2. LÓGICA DE CARGA DE IMAGEN ---
+        function handleFileSelect(event) {
+            const file = event.target.files?.[0];
+            if (file) {
+                // Limpiar resultados anteriores
+                diagnosisResult = null;
+                diagnosisResultContainer.classList.add('hidden');
+                llmOutputContainer.classList.add('hidden');
+
+                const reader = new FileReader();
+                reader.onload = () => {
+                    imagePreviewBase64 = reader.result;
+                    imagePreview.src = imagePreviewBase64;
+                    imagePreview.classList.remove('hidden');
+                    placeholderText.classList.add('hidden');
+                    processButtonContainer.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+
+        // --- 3. LÓGICA DE PROCESAMIENTO (Simulado) ---
+        function processImage() {
+            if (!imagePreviewBase64 || isProcessing) return;
+
+            isProcessing = true;
+            setButtonState(processButton, true, 'Analizando imagen...', 'Diagnosticar Plaga Ahora');
+            diagnosisResultContainer.classList.add('hidden');
+            llmOutputContainer.classList.add('hidden');
+            
+            // plagas
+
+            const results = [
+                { plague: 'Roya (Hemileia vastatrix) - Café', confidence: 95.2, recommendation: 'Aplicar fungicida sistémico de bajo impacto ambiental inmediatamente. Aísle las plantas afectadas.', color: 'red' },
+                { plague: 'Cultivo Sano', confidence: 99.8, recommendation: '¡Felicidades! Su cultivo está sano. Continúe con el monitoreo preventivo rutinario.', color: 'green' },
+                { plague: 'Posible Sigatoka Negra - Plátano', confidence: 65.5, recommendation: 'Recomendamos tomar una segunda foto con mejor iluminación. Monitorear las hojas más bajas.', color: 'yellow' }
+            ];
+
+            const randomIndex = Math.floor(Math.random() * results.length);
+            diagnosisResult = results[randomIndex];
+            //
+
+            //Procesamiento de imagen, boton
+
+            setTimeout(() => {
+                isProcessing = false;
+                setButtonState(processButton, false, '', 'Diagnosticar Nuevamente Plaga');
+                displayDiagnosisResult();
+            }, 2000); // Simulación de 2 segundos
+        }
+        
+        //Resultado de diagnostico Resultado del Asistente
+        function displayDiagnosisResult() {
+            if (!diagnosisResult) return;
+
+            const { plague, confidence, recommendation, color } = diagnosisResult;
+            getResultClasses(color);
+            
+            diagnosisDetails.innerHTML = `
+                <div class="flex justify-between items-center border-b pb-2">
+                    <span class="font-medium text-gray-700">Plaga Detectada:</span>
+                    <span class="font-bold text-lg ${color === 'green' ? 'text-green-700' : 'text-red-700'}">
+                        ${plague}
+                    </span>
+                </div>
+                <div class="flex justify-between items-center border-b pb-2">
+                    <span class="font-medium text-gray-700">Nivel de Confianza (IA):</span>
+                    <span class="font-bold text-lg text-indigo-700">
+                        ${confidence}%
+                    </span>
+                </div>
+                <div>
+                    <h4 class="font-medium text-gray-700 mt-4 mb-2">Recomendación Rápida:</h4>
+                    <p class="p-3 bg-gray-50 rounded-lg text-sm text-gray-800 border">
+                        ${recommendation}
+                    </p>
+                </div>
+            `;
+            
+            diagnosisResultContainer.classList.remove('hidden');
+        }
+
+
+
+
+         
+        // --- 4. FUNCIÓN LLM: ANÁLISIS AVANZADO (VISION)  Resultado del Asistente ---
+        async function getAdvancedAnalysis() {
+                       
+            try {
+                             
+                const result = await response.json();
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "Error provocado el análisis visual avanzado.";
+                
+
+            } catch (error) {
+                //console.error('Error fetching advanced analysis from Gemini:', error);
+                llmOutputTitle.textContent = "Informe detallado ";
+                llmOutputTitle.classList.remove('text-purple-700');
+                llmOutputTitle.classList.add('text-blue-500');
+                /// texto de informacion
+                llmOutputContent.textContent = 
+                `Ubicación: Altura entre 1.300 y 2.200 metros sobre el nivel del mar.
+Clima: Temperatura entre 14°C y 18°C.
+Precipitación: 1.500 a 2.200 mm anuales.
+Humedad: Alrededor del 80%.
+Suelo: Textura franca, franco-arenosa o franco-arcillosa, con buen drenaje y pH de 5,5 a 6,5. `;
+                llmOutputContainer.classList.remove('hidden');
+            } finally {
+                setLLMLoadingState(null);
+            }
+        }
+
+        // --- 5. FUNCIÓN LLM: GENERAR PLAN DE ACCIÓN (TEXT) ---
+        async function generateActionPlan() {
+            
+            try {            
+                const result = await response.json();
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "Error provocado ia avanzado.";
+                
+
+            } catch (error) {
+                //console.error('Error fetching advanced analysis from Gemini:', error);
+                llmOutputTitle.textContent = "Plan de accion ";
+                llmOutputTitle.classList.remove('text-purple-700');
+                llmOutputTitle.classList.add('text-green-500');
+                /// texto de informacion
+                llmOutputContent.textContent = 
+                `Un plan de acción ante una plaga en un cultivo de lulo debe ser integral, combinando la prevención, el monitoreo constante y el control de las plagas. Incluye acciones culturales (poda, desinfección de herramientas), métodos de control biológico (uso de bioinsumos, trampas) y manejo químico (aplicación de fungicidas o insecticidas autorizados y de baja toxicidad, aplicando rotación de productos para evitar resistencia), siempre priorizando la seguridad alimentaria y la supervisión de un ingeniero agrónomo`;
+                llmOutputContainer.classList.remove('hidden');
+            } finally {
+                setLLMLoadingState(null);
+            }
+            
+        }       
+        
+    </script>
+</body>
+</html>
